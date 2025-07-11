@@ -1,0 +1,36 @@
+import {useEffect, useState} from 'react';
+const Card = ({title}) =>{
+  const [count, setCount] = useState(0);
+  const [hasLiked,setHasLiked] = useState(false);
+
+  useEffect(() => {
+    console.log(`${title} had been liked: ${hasLiked}`);
+  }, [hasLiked]); // This is a dependancy array that only when this varible has changed the useffect will be called. This is to avoid a count addtion when we are just pressing the like
+  useEffect(() => {
+    console.log('Card Rendered')
+  }, []); // this is a useEffect that mounts only once when the ucomponenet appears, this is MOST COMMON USE
+
+  return(
+    <div className = "cards" onClick={() => setCount(count + 1)}>
+      <h2 > {title}<br/> {count ?count: null}</h2>
+      <button onClick={() => setHasLiked(!hasLiked)}>
+         {hasLiked ? "❤️":"🤍" }
+         </button>
+    </div>
+    // this above is the conditonal rendering, that allows us to use the state to change the heart eahc time we press the button
+  )
+}
+
+const App = () => {
+
+
+  return(
+    <div className="card-container">
+    <Card title = "Starwars" rating = {5} isCool = {true}/>
+    <Card title = "Avatar"/>
+    <Card title = "The Lion King"/>
+    </div>
+  )
+}
+
+export default App
